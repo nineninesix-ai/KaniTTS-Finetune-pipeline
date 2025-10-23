@@ -1,0 +1,14 @@
+# Inference Configuration
+# Parameters for text-to-speech generation
+
+model:
+  device_map: "auto"
+  torch_dtype: "bfloat16"  # Used in eval_research.py
+
+generation:
+  max_new_tokens: 1200  # Maximum audio tokens to generate
+  do_sample: true
+  temperature: 0.6
+  top_p: 0.95
+  repetition_penalty: 1.1
+  num_return_sequences: 1

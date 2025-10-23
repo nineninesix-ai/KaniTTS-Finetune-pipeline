@@ -1,0 +1,5 @@
+eval_set:
+  - ex_id_1: "speaker_name: Hey there my name is Tara, and I'm a speech generation model that can sound like a person."
+  - ex_id_2: "speaker_name: His half-brother Thomas, however, was doing well in London,and was willing to help him with the requisite means."
+  - ex_id_3: "speaker_name: Colleges of Oxford, Cambridge, Durham and the University of the Highlands and Islands UHI are 'listed bodies', as bodies that appear to the Secretary of State to be constituent colleges, schools, halls or other institutions of a university."
+  - ex_id_4: "speaker_name: ...... test sentence ....."

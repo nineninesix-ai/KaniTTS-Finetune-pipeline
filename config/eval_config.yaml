@@ -1,0 +1,14 @@
+# Evaluation Configuration
+# Settings for running evaluation and generating audio samples
+
+paths:
+  audio_output_dir: "./audio_samples"
+  checkpoints_dir: "./checkpoints"
+
+huggingface:
+  upload_dataset: true
+  repo_name: "repo/hf_dataset_name_with_result_to_upload"
+  private: true
+
+processing:
+  num_proc: 10  # Number of processes for data loading

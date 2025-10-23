@@ -1,0 +1,33 @@
+# Model and Token Configuration
+# This file contains all token space definitions and codec parameters
+
+# Token space configuration
+tokenizer:
+  vocab_size: 64400  # Base tokenizer vocabulary size
+
+special_tokens:
+  start_of_text: 1
+  end_of_text: 2
+  start_of_speech: 64401  # vocab_size + 1
+  end_of_speech: 64402    # vocab_size + 2
+  start_of_human: 64403   # vocab_size + 3
+  end_of_human: 64404     # vocab_size + 4
+  start_of_ai: 64405      # vocab_size + 5
+  end_of_ai: 64406        # vocab_size + 6
+  pad_token: 64407        # vocab_size + 7
+
+# Audio codec configuration
+codec:
+  model_name: "nvidia/nemo-nano-codec-22khz-0.6kbps-12.5fps"
+  sample_rate: 22050
+  fps: 12.5  # Frames per second
+  num_codebooks: 4
+  codebook_size: 4032
+  audio_tokens_start: 64410  # vocab_size + 10
+
+# Codec layer names
+codec_layers:
+  - nano_layer_1
+  - nano_layer_2
+  - nano_layer_3
+  - nano_layer_4

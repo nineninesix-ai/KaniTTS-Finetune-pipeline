@@ -1,0 +1,41 @@
+max_duration_sec: 12 # or null
+
+hf_datasets:
+
+  - reponame: nineninesix/expresso-conversational-en-nano-codec-dataset
+    name: null
+    split: train
+    text_col_name: text
+    nano_layer_1: nano_layer_1
+    nano_layer_2: nano_layer_2
+    nano_layer_3: nano_layer_3
+    nano_layer_4: nano_layer_4
+    encoded_len: encoded_len
+    speaker_id: simon # or none
+    categorical_filter:
+      column_name: speaker
+      value: ex01
+
+  - reponame: nineninesix/ceylia-en-nano-codec-dataset
+    name: null
+    split: train
+    text_col_name: text
+    nano_layer_1: nano_layer_1
+    nano_layer_2: nano_layer_2
+    nano_layer_3: nano_layer_3
+    nano_layer_4: nano_layer_4
+    encoded_len: encoded_len
+    speaker_id: ceylia
+
+
+  - reponame: nineninesix/puck-gemini-flash-en-nano-codec-dataset
+    name: null
+    split: train
+    text_col_name: text
+    nano_layer_1: nano_layer_1
+    nano_layer_2: nano_layer_2
+    nano_layer_3: nano_layer_3
+    nano_layer_4: nano_layer_4
+    encoded_len: encoded_len
+    speaker_id: puck
+    max_len: 2000
