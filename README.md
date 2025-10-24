@@ -1,6 +1,6 @@
-# 🎙️ KaniTTS Finetuning Pipeline - NINENINESIX
+# KaniTTS Finetuning Pipeline
 
-[![Discord](https://dcbadge.limes.pink/api/server/https://discord.gg/NzP3rjB4SB?style=flat)](https://discord.gg/NzP3rjB4SB)
+[![Discord](https://dcbadge.limes.pink/api/server/https://discord.gg/NzP3rjB4SB?style=flat)](https://discord.gg/NzP3rjB4SB) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
 <a href="https://www.nineninesix.ai/" target="_blank">
@@ -21,49 +21,32 @@
 
 ---
 
-## 🌟 What is This?
+This is a **complete, production-ready workflow** for finetuning **LFM2-based text-to-speech models** (like KaniTTS) with **NeMo NanoCodec** on your own speakers and languages.
 
-This is a **complete, production-ready workflow** for finetuning **LFM2-based text-to-speech models** (like KaniTTS) with **NeMo Nano Codec** on your own speakers and languages!
-
-Whether you're a seasoned ML engineer or just starting your journey in machine learning, this pipeline makes it easy to:
-
-✨ **Finetune state-of-the-art TTS models** on your custom voice datasets
-✨ **Run multiple experiments** with different hyperparameter configurations in one go
-✨ **Automatically evaluate** each trained model on a test set
-✨ **Upload results to HuggingFace Hub** for easy comparison and sharing
-✨ **Perfect for hyperparameter optimization** (works great with Optuna!)
-
-### Why This Pipeline?
-
-- 🎯 **No ML PhD required** - Clear documentation and sensible defaults
-- 🔬 **Experiment-driven** - Test multiple configurations automatically
-- 📊 **Built-in evaluation** - Compare all your experiments on HuggingFace Hub
-- 🚀 **Production-ready** - Used for training professional TTS models
-- 🌍 **Multi-language** - Train on English, Korean, Chinese, Spanish, German, Arabic, and more
-- 🎤 **Multi-speaker** - Support for speaker-conditioned models
+- **Finetune** on your custom voice datasets
+- **Run multiple experiments** with different hyperparameter configurations in one go
+- **Automatically evaluate** each trained model on a test set
+- **Upload results to HuggingFace Hub** for easy comparison and sharing
+- **Perfect for hyperparameter optimization** (works with Optuna)
 
 ---
 
 ## 📋 Requirements
 
 ### Hardware & System
-- **Linux VM with NVIDIA GPU** (recommended: RTX 5090 or similar)
+- **Linux with NVIDIA GPU** (recommended: RTX 5090 or similar)
 - **CUDA 12.8+** (the setup script handles PyTorch installation automatically)
-- **Ubuntu Linux** (macOS is not supported)
 
 ### Dataset Preparation
 
-**IMPORTANT**: This pipeline requires a dataset tokenized with **NeMo Nano Codec**.
+> **IMPORTANT**: This pipeline requires a dataset tokenized with **NeMo NanoCodec**.
 
-If you don't have a tokenized dataset yet, prepare it using our dataset processing pipeline:
-👉 **[Nano Codec Dataset Pipeline](https://github.com/nineninesix-ai/nano-codec-dataset-pipeline)**
+If you don't have a tokenized dataset yet, prepare it using our dataset processing pipeline: **[NanoCodec Dataset Pipeline](https://github.com/nineninesix-ai/nano-codec-dataset-pipeline)**
 
 The dataset pipeline will:
-- Convert your raw audio files to NeMo Nano Codec tokens
+- Convert your raw audio files to NeMo NanoCodec tokens
 - Create the exact format needed for this finetuning pipeline
 - Handle multi-speaker datasets automatically
-
----
 
 ## 🚀 Quick Start
 
@@ -107,7 +90,7 @@ Edit the configuration files (detailed explanation below):
 make train
 ```
 
-Go grab another coffee ☕ - training can take several hours depending on your dataset size and GPU.
+Training can take several hours depending on your dataset size and GPU.
 
 ### Step 5: Evaluate
 
@@ -121,13 +104,13 @@ This will generate audio samples for all your trained models and upload them to 
 
 ## 📊 Configuration Guide
 
-This pipeline uses YAML configuration files. Let's go through each one in detail.
+This pipeline uses YAML configuration files.
 
-### 1️⃣ Dataset Configuration (`config/dataset_config.yaml`)
+### Basic Configuration
+
+#### Dataset Configuration (`config/dataset_config.yaml`)
 
 This file tells the pipeline where to find your training data and how to process it.
-
-#### Basic Structure
 
 ```yaml
 max_duration_sec: 12  # Maximum audio duration in seconds
@@ -137,19 +120,17 @@ hf_datasets:
     name: "default"  # Subset name (use "default" if no subsets)
     split: "train"
     text_col_name: text  # Column containing transcriptions
-    nano_layer_1: nano_layer_1  # Nano codec layer 1
-    nano_layer_2: nano_layer_2  # Nano codec layer 2
-    nano_layer_3: nano_layer_3  # Nano codec layer 3
-    nano_layer_4: nano_layer_4  # Nano codec layer 4
+    nano_layer_1: nano_layer_1  # codec layer 1
+    nano_layer_2: nano_layer_2  # codec layer 2
+    nano_layer_3: nano_layer_3  # codec layer 3
+    nano_layer_4: nano_layer_4  # codec layer 4
     encoded_len: encoded_len    # Audio length in frames
     speaker_id: "alice"  # OPTIONAL: speaker identifier
     max_len: 10000      # OPTIONAL: limit number of samples
 ```
 
-#### Understanding the Fields
-
 **Required Fields:**
-- `reponame`: Your HuggingFace dataset repository (must be tokenized with Nano Codec)
+- `reponame`: Your HuggingFace dataset repository (must be tokenized with NanoCodec)
 - `text_col_name`: Column name containing text transcriptions
 - `nano_layer_1/2/3/4`: Column names for the 4 codec layers
 - `encoded_len`: Column with audio length in codec frames
@@ -193,7 +174,8 @@ When you run training, the dataset processor:
 
 The processing uses **multiprocessing** for speed, automatically detecting your CPU count.
 
-#### Example: Single Speaker Dataset
+#### Examples
+##### Single Speaker Dataset
 
 ```yaml
 max_duration_sec: 12
@@ -211,7 +193,7 @@ hf_datasets:
     speaker_id: "alice"
 ```
 
-#### Example: Multi-Speaker Dataset
+##### Multi-Speaker Dataset
 
 ```yaml
 max_duration_sec: 12
@@ -244,13 +226,12 @@ hf_datasets:
     max_len: 5000
 ```
 
-**⚠️ Key Point**: Notice each dataset has a **different `speaker_id`**. This is crucial for the model to learn to distinguish between speakers!
+> **Key Point**: Notice each dataset has a **different `speaker_id`**. This is crucial for the model to learn to distinguish between speakers!
 
----
 
-### 2️⃣ Experiment Configuration (`config/experiments.yaml`)
+### Experiment Configuration (`config/experiments.yaml`)
 
-This file defines your training experiments. You can run multiple experiments with different hyperparameters in a single training run!
+This file defines your training experiments. You can run multiple experiments with different hyperparameters in a single training run.
 
 #### Basic Structure
 
@@ -280,9 +261,7 @@ experiments:
       warmup_ratio: 0.1
 ```
 
-#### Understanding LoRA (For Beginners)
-
-**What is LoRA?**
+#### Understanding LoRA
 
 LoRA (Low-Rank Adaptation) is a technique that lets you finetune large models efficiently:
 - Instead of updating all 450 million parameters, LoRA adds small "adapter" layers
@@ -367,11 +346,11 @@ target_modules: [q_proj, k_proj, v_proj, out_proj, w1, w2, w3, in_proj]
 - **Recommended**: `adamw_torch` (standard choice)
 
 **`bf16`**: Use bfloat16 precision
-- **Recommended**: `true` (faster, less memory, requires modern GPUs)
+- **Recommended**: `true` (faster, less memory, supported by modern GPUs like Blackwell)
 
 #### Why Multiple Experiments?
 
-The beauty of this pipeline is that you can **run many experiments in one go**:
+You can **run many experiments in one go**:
 
 ```yaml
 experiments:
@@ -416,7 +395,7 @@ The pipeline will:
 4. Clear GPU memory between experiments
 5. Log everything to Weights & Biases
 
-You can then evaluate all of them and pick the best one! This is **perfect for hyperparameter optimization with tools like Optuna**.
+You can then evaluate all of them and pick the best one. This is perfect for hyperparameter optimization with tools like **Optuna**.
 
 #### Base Model
 
@@ -433,11 +412,9 @@ This model is pretrained on multiple languages:
 - 🇩🇪 German (de)
 - 🇸🇦 Arabic (ar)
 
-**Coming soon**: More advanced versions with support for additional languages including Japanese, French, Portuguese, and more!
+**Coming soon**: More advanced versions with support for additional languages including Japanese, French, Portuguese, and more.
 
----
-
-### 3️⃣ Evaluation Configuration (`config/eval_config.yaml` & `config/eval_set.yaml`)
+### Evaluation Configuration (`config/eval_config.yaml` & `config/eval_set.yaml`)
 
 #### eval_config.yaml
 
@@ -501,11 +478,9 @@ On HuggingFace Hub, you can:
 - 📊 **Compare** base model vs all finetuned variants
 - 🔗 **Share** results with your team
 
-This makes it incredibly easy to pick the best model or iterate on your experiments!
+This makes it easy to pick the best model or iterate on your experiments.
 
----
-
-### 4️⃣ Other Configuration Files
+### Other Configuration Files
 
 #### model_config.yaml
 
@@ -529,7 +504,7 @@ Controls inference behavior:
 
 ### The Audio Codec
 
-This pipeline uses **NeMo Nano Codec** which compresses audio into discrete tokens:
+This pipeline uses **NeMo NanoCodec** which compresses audio into discrete tokens:
 - **4 codebooks** of 4096 tokens each
 - **22kHz sample rate** (high quality)
 - **0.6 kbps** (extreme compression)
@@ -564,7 +539,7 @@ This makes preprocessing fast even for large datasets!
 
 ## 📓 Google Colab Notebook
 
-**Coming soon!** We're preparing a simplified Jupyter notebook for Google Colab that will let you run experiments without a local GPU.
+**Coming soon** We're preparing a simplified Jupyter notebook for Google Colab that will let you run experiments without a local GPU.
 
 The notebook will be available in the `notebooks/` directory.
 
@@ -604,7 +579,7 @@ make help
 ### Dataset Loading Issues
 - Ensure your HuggingFace token has access to the dataset
 - Check column names in `dataset_config.yaml` match your dataset
-- Verify dataset was tokenized with Nano Codec (4 layers + encoded_len)
+- Verify dataset was tokenized with NanoCodec (4 layers + encoded_len)
 - Use `make test-config` to validate config files
 
 ### Training Errors
@@ -618,7 +593,7 @@ make help
 
 Need help or want to share your results?
 
-- 📝 **GitHub Issues**: [Report bugs or request features](https://github.com/your-org/KaniTTS-Finetune-pipeline/issues)
+- 📝 **GitHub Issues**: [Report bugs or request features](https://github.com/nineninesix-ai/KaniTTS-Finetune-pipeline/issues)
 - 💬 **Discord Community**: [![Discord](https://dcbadge.limes.pink/api/server/https://discord.gg/NzP3rjB4SB?style=flat)](https://discord.gg/NzP3rjB4SB)
 
 Join our Discord to:
@@ -631,38 +606,15 @@ Join our Discord to:
 
 ## 🙏 Acknowledgments
 
-This pipeline is built on top of amazing open-source work:
+This pipeline is built on top of open-source projects:
 
-- **NVIDIA** for the NeMo Toolkit and Nano Codec
-- **The LFM Team** for the foundational LFM2 architecture
-- **HuggingFace** for transformers and the Hub
-- **The open-source ML community** for PyTorch, LoRA (PEFT), and more
-
-Special thanks to everyone contributing to TTS research and making it accessible!
-
+- [NVIDIA NeMo NanoCodec](https://huggingface.co/nvidia/nemo-nano-codec-22khz-0.6kbps-12.5fps) - neural audio codec
+- [LFM2-350M](https://huggingface.co/LiquidAI/LFM2-350M) - backbone LLM
+- **HuggingFace** transformers and Hub
+- PyTorch, LoRA (PEFT)
+  
 ---
 
 ## 📄 License
 
-This project is open source. See LICENSE file for details.
-
----
-
-```
-===============================================
-          N I N E N I N E S I X  😼
-===============================================
-
-          /\_/\
-         ( -.- )───┐
-          > ^ <    │
-===============================================
-```
-
-<div align="center">
-
-**Happy Finetuning! 🎙️**
-
-*Train amazing voices. Share your creations. Push the boundaries of TTS.*
-
-</div>
+This project is under Apache 2. See [LICENSE](LICENSE) file for details.
