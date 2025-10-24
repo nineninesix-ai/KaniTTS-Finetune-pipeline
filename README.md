@@ -538,10 +538,7 @@ This makes preprocessing fast even for large datasets!
 ---
 
 ## 📓 Google Colab Notebook
-
-**Coming soon** We're preparing a simplified Jupyter notebook for Google Colab that will let you run experiments without a local GPU.
-
-The notebook will be available in the `notebooks/` directory.
+The notebook is available in the `notebooks/` directory, so you can run experiments without a local GPU.
 
 ---
 
