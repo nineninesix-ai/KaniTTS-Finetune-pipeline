@@ -169,7 +169,7 @@ fi
 
 
 set +e
-pip install "flash-attn==2.8.3" #--no-build-isolation
+pip install "flash-attn==2.8.3" --no-build-isolation
 FA_CODE=$?
 set -e
 if [[ $FA_CODE -ne 0 ]]; then
