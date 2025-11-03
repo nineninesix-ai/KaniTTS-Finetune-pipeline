@@ -1,4 +1,4 @@
-# KaniTTS Finetuning Pipeline
+<img width="256" height="256" alt="image" src="https://github.com/user-attachments/assets/d5b5ca81-45e6-40a6-a9d9-157c128c6462" /># KaniTTS Finetuning Pipeline
 
 [![Discord](https://dcbadge.limes.pink/api/server/https://discord.gg/NzP3rjB4SB?style=flat)](https://discord.gg/NzP3rjB4SB) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -401,7 +401,7 @@ You can then evaluate all of them and pick the best one. This is perfect for hyp
 
 The default base model is:
 ```yaml
-base_model: "nineninesix/kani-tts-450m-0.2-pt"
+base_model: "nineninesix/kani-tts-400m-0.3-pt"
 ```
 
 This model is pretrained on multiple languages:
@@ -411,8 +411,10 @@ This model is pretrained on multiple languages:
 - 🇪🇸 Spanish (es)
 - 🇩🇪 German (de)
 - 🇸🇦 Arabic (ar)
+- 🇯🇵 Japanese (ja)
+- 🇰🇬 Kyrgyz (ky)
 
-**Coming soon**: More advanced versions with support for additional languages including Japanese, French, Portuguese, and more.
+**Coming soon**: More advanced versions with support for additional languages including French, Portuguese, and more.
 
 ### Evaluation Configuration (`config/eval_config.yaml` & `config/eval_set.yaml`)
 
