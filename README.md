@@ -117,7 +117,7 @@ max_duration_sec: 12  # Maximum audio duration in seconds
 
 hf_datasets:
   - reponame: "your-username/your-dataset-repo"
-    name: "default"  # Subset name (use "default" if no subsets)
+    name: null  # Subset name (use null if no subsets)
     split: "train"
     text_col_name: text  # Column containing transcriptions
     nano_layer_1: nano_layer_1  # codec layer 1
@@ -182,7 +182,7 @@ max_duration_sec: 12
 
 hf_datasets:
   - reponame: "my-username/alice-voice-nano"
-    name: "default"
+    name: null
     split: "train"
     text_col_name: text
     nano_layer_1: nano_layer_1
@@ -201,7 +201,7 @@ max_duration_sec: 12
 hf_datasets:
   # Alice's voice
   - reponame: "my-username/alice-voice-nano"
-    name: "default"
+    name: null
     split: "train"
     text_col_name: text
     nano_layer_1: nano_layer_1
@@ -214,7 +214,7 @@ hf_datasets:
 
   # Bob's voice
   - reponame: "my-username/bob-voice-nano"
-    name: "default"
+    name: null
     split: "train"
     text_col_name: text
     nano_layer_1: nano_layer_1
