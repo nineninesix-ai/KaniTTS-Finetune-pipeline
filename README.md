@@ -125,7 +125,7 @@ hf_datasets:
     nano_layer_3: nano_layer_3  # codec layer 3
     nano_layer_4: nano_layer_4  # codec layer 4
     encoded_len: encoded_len    # Audio length in frames
-    speaker_id: "alice"  # OPTIONAL: speaker identifier
+    speaker_id: "alice"  # OPTIONAL: speaker identifier May be `null` if you want to tune no support speaker_id model
     max_len: 10000      # OPTIONAL: limit number of samples
 ```
 
