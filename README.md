@@ -27,7 +27,7 @@ This is a **complete, production-ready workflow** for finetuning **LFM2-based te
 - **Run multiple experiments** with different hyperparameter configurations in one go
 - **Automatically evaluate** each trained model on a test set
 - **Upload results to HuggingFace Hub** for easy comparison and sharing
-- **Perfect for hyperparameter optimization** (works with Optuna)
+- **Perfect for hyperparameter optimization** (like Optuna)
 
 ---
 
