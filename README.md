@@ -1,4 +1,4 @@
-<img width="256" height="256" alt="image" src="https://github.com/user-attachments/assets/d5b5ca81-45e6-40a6-a9d9-157c128c6462" /># KaniTTS Finetuning Pipeline
+# KaniTTS Finetuning Pipeline
 
 [![Discord](https://dcbadge.limes.pink/api/server/https://discord.gg/NzP3rjB4SB?style=flat)](https://discord.gg/NzP3rjB4SB) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
